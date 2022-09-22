@@ -17,17 +17,20 @@ interface Coin {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-
   coins: Coin[] = [];
-  tittles: string[] = [
-    '#',
-    'Coin',
-    'Price',
-    'Price Change',
-    '24 Volume',
-  ]
+  filteredCoins: Coin[] = [];
+  tittles: string[] = ['#', 'Coin', 'Price', 'Price Change', '24 Volume'];
+  searchedCoin: string = '';
 
   constructor(private http: HttpClient) {}
+
+  searchCoin() {
+    this.filteredCoins = this.coins.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(this.searchedCoin.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(this.searchedCoin.toLowerCase())
+    );
+  }
 
   ngOnInit() {
     this.http
@@ -36,6 +39,7 @@ export class AppComponent implements OnInit {
       )
       .subscribe((data) => {
         this.coins = data;
+        this.filteredCoins = data;
       });
   }
 }
