@@ -19,6 +19,13 @@ interface Coin {
 export class AppComponent implements OnInit {
 
   coins: Coin[] = [];
+  tittles: string[] = [
+    '#',
+    'Coin',
+    'Price',
+    'Price Change',
+    '24 Volume',
+  ]
 
   constructor(private http: HttpClient) {}
 
